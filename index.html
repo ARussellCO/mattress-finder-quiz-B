@@ -314,372 +314,371 @@
 
     <script>
         // Complete mattress catalog with all 33 mattresses
-        const mattressCatalog = [
-            {
-                manufacturer: "Sealy",
-                collection: "Madison Aire",
-                audience: ["Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium"],
-                url: "https://www.afw.com/madison-aire-king-mattress",
-                image: "images/Madison Aire.png"
-            },
-            {
-                manufacturer: "Sealy",
-                collection: "Royce Falls",
-                audience: ["Personal"],
-                type: ["Spring", "Hybrid"],
-                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Med-Plush", "Plush"],
-                url: "https://www.afw.com/royce-falls-king-mattress",
-                image: "images/Royce Falls.png"
-            },
-            {
-                manufacturer: "Immunity",
-                collection: "Chestnut",
-                audience: ["Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Firm", "Med-Firm"],
-                url: "",
-                image: "images/Chestnut.png"
-            },
-            {
-                manufacturer: "Immunity",
-                collection: "Auburn",
-                audience: ["Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Med-Plush", "Plush"],
-                url: "",
-                image: "images/Auburn.png"
-            },
-            {
-                manufacturer: "Immunity",
-                collection: "Sienna",
-                audience: ["Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "",
-                image: "images/Sienna.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Stream Side",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Firm"],
-                url: "https://www.afw.com/streamside-firm-king-mattress",
-                image: "images/Stream-side.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Clear Creek",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Med-Plush", "Plush"],
-                url: "https://www.afw.com/clear-creek-king-mattress",
-                image: "images/Clear Creek.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Dovedale",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Medium"],
-                url: "",
-                image: "images/Dovedale.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Mount Blue",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: true,
-                comfort: ["Medium", "Med-Plush"],
-                url: "https://www.afw.com/mount-blue-king-mattress",
-                image: "images/Mount Blue.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Kempton",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: false,
-                comfort: ["Med-Plush", "Plush"],
-                url: "https://www.afw.com/kempton-king-mattress",
-                image: "images/Kempton.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Merriweather",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium", "Med-Plush"],
-                url: "https://www.afw.com/merriweather-king-mattress",
-                image: "images/Merriweather.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Ravina",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/ravina-king-mattress",
-                image: "images/Ravina.png"
-            },
-            {
-                manufacturer: "Sealy Posterpedic",
-                collection: "Ameris",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Firm"],
-                url: "https://www.afw.com/ameris-king-mattress",
-                image: "images/Ameris.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Cave Creek",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium", "Med-Plush"],
-                url: "https://www.afw.com/cave-creek-king-mattress",
-                image: "images/Cave Creek.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Flagstaff",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/flagstaff-king-mattress",
-                image: "images/Flagstaff.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Havasu",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: false,
-                comfort: ["Firm"],
-                url: "https://www.afw.com/havasu-king-mattress",
-                image: "images/Havasu.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Sunbelt",
-                audience: ["Guest", "Personal"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium"],
-                url: "https://www.afw.com/sunbelt-king-mattress",
-                image: "images/Sunbelt.png"
-            },
-            {
-                manufacturer: "Therapedic",
-                collection: "Cloud",
-                audience: ["Guest", "Personal"],
-                type: ["Spring", "Hybrid"],
-                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Med-Firm", "Medium", "Med-Plush"],
-                url: "https://www.afw.com/cloud-mattress-11-king",
-                image: "images/Cloud.png"
-            },
-            {
-                manufacturer: "Therapedic",
-                collection: "Windsor Euro",
-                audience: ["Childrens", "Guest"],
-                type: ["Spring"],
-                priorities: ["Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/windsor-king-mattress",
-                image: "images/Windsor Euro.png"
-            },
-            {
-                manufacturer: "Bedtech",
-                collection: "Skyland",
-                audience: ["Childrens"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: false,
-                comfort: ["Medium"],
-                url: "https://www.afw.com/skyland-king-mattress",
-                image: "images/Skyland.png"
-            },
-            {
-                manufacturer: "Therapedic",
-                collection: "Ruby Waves",
-                audience: ["Childrens"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: false,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/ruby-waves-king-mattress",
-                image: "images/Ruby Waves.png"
-            },
-            {
-                manufacturer: "Therapedic",
-                collection: "Sweet Dreams",
-                audience: ["Childrens"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: false,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/sweet-dreams-king-mattress",
-                image: "images/Sweet Dreams.png"
-            },
-            {
-                manufacturer: "Therapedic",
-                collection: "Mira",
-                audience: ["Childrens"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: false,
-                comfort: ["Firm", "Med-Firm"],
-                url: "https://www.afw.com/mira-firm-queen-mattress",
-                image: "images/Mira.png"
-            },
-            {
-                manufacturer: "American Collection",
-                collection: "Paris",
-                audience: ["Childrens"],
-                type: ["Spring"],
-                priorities: ["Overall Support"],
-                adjustable: false,
-                comfort: ["Firm", "Med-Firm"],
-                url: "https://www.afw.com/paris-foam-queen-mattress",
-                image: "images/Paris.png"
-            },
-            {
-                manufacturer: "Memory Foam by BedTech",
-                collection: "7\" Grayson",
-                audience: ["Childrens"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium"],
-                url: "https://www.afw.com/grayson-7-queen-mattress",
-                image: "images/7 Grayson.png"
-            },
-            {
-                manufacturer: "Memory Foam by Health Care",
-                collection: "8\" Premier",
-                audience: ["Guest", "Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief"],
-                adjustable: false,
-                comfort: ["Firm", "Med-Firm"],
-                url: "https://www.afw.com/premier-8-king-mattress",
-                image: "images/8 premier.png"
-            },
-            {
-                manufacturer: "Memory Foam by Health Care",
-                collection: "9\" Origin",
-                audience: ["Guest", "Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium", "Med-Plush"],
-                url: "https://www.afw.com/origin-9-king-mattress",
-                image: "images/9 Origin.png"
-            },
-            {
-                manufacturer: "Memory Foam by Health Care",
-                collection: "11\" Seebreeze Mist",
-                audience: ["Guest", "Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/seabreeze-mist-king-mattress",
-                image: "images/Mist.png"
-            },
-            {
-                manufacturer: "Memory Foam by Health Care",
-                collection: "13\" Seebreeze",
-                audience: ["Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Firm"],
-                url: "https://www.afw.com/seabreeze-king-mattress",
-                image: "images/Seabreeze.png"
-            },
-            {
-                manufacturer: "Memory Foam by Health Care",
-                collection: "13\" Seebreeze Copper",
-                audience: ["Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Medium"],
-                url: "https://www.afw.com/seabreeze-copper-king-mattress",
-                image: "images/Copper.png"
-            },
-            {
-                manufacturer: "Memory Foam by BedTech",
-                collection: "14\" Marbella",
-                audience: ["Personal"],
-                type: ["Memory Foam"],
-                priorities: ["Pressure Point Relief", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Plush"],
-                url: "https://www.afw.com/marbella-14-king-mattress",
-                image: "images/Marabella.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Hybrid Firm",
-                audience: ["Personal"],
-                type: ["Hybrid"],
-                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Firm", "Med-Firm"],
-                url: "https://www.afw.com/hybrid-firm-king-mattress-2",
-                image: "images/Hybrid Firm.png"
-            },
-            {
-                manufacturer: "Beautyrest",
-                collection: "Hybrid Plush",
-                audience: ["Personal"],
-                type: ["Hybrid"],
-                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
-                adjustable: true,
-                comfort: ["Med-Plush", "Plush"],
-                url: "https://www.afw.com/hybrid-plush-king-mattress-2",
-                image: "images/Hybrid Plush.png"
-            }
-        ];
-
+       const mattressCatalog = [
+    {
+        manufacturer: "Sealy",
+        collection: "Madison Aire",
+        audience: ["Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium"],
+        url: "https://www.afw.com/madison-aire-king-mattress",
+        image: "images/madison-aire.png"
+    },
+    {
+        manufacturer: "Sealy",
+        collection: "Royce Falls",
+        audience: ["Personal"],
+        type: ["Spring", "Hybrid"],
+        priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Med-Plush", "Plush"],
+        url: "https://www.afw.com/royce-falls-king-mattress",
+        image: "images/royce-falls.png"
+    },
+    {
+        manufacturer: "Immunity",
+        collection: "Chestnut",
+        audience: ["Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Firm", "Med-Firm"],
+        url: "",
+        image: "images/chestnut.png"
+    },
+    {
+        manufacturer: "Immunity",
+        collection: "Auburn",
+        audience: ["Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Med-Plush", "Plush"],
+        url: "",
+        image: "images/auburn.png"
+    },
+    {
+        manufacturer: "Immunity",
+        collection: "Sienna",
+        audience: ["Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "",
+        image: "images/sienna.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Stream Side",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Firm"],
+        url: "https://www.afw.com/streamside-firm-king-mattress",
+        image: "images/stream-side.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Clear Creek",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Med-Plush", "Plush"],
+        url: "https://www.afw.com/clear-creek-king-mattress",
+        image: "images/clear-creek.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Dovedale",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Medium"],
+        url: "",
+        image: "images/dovedale.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Mount Blue",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: true,
+        comfort: ["Medium", "Med-Plush"],
+        url: "https://www.afw.com/mount-blue-king-mattress",
+        image: "images/mount-blue.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Kempton",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: false,
+        comfort: ["Med-Plush", "Plush"],
+        url: "https://www.afw.com/kempton-king-mattress",
+        image: "images/kempton.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Merriweather",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium", "Med-Plush"],
+        url: "https://www.afw.com/merriweather-king-mattress",
+        image: "images/merriweather.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Ravina",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/ravina-king-mattress",
+        image: "images/ravina.png"
+    },
+    {
+        manufacturer: "Sealy Posterpedic",
+        collection: "Ameris",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Firm"],
+        url: "https://www.afw.com/ameris-king-mattress",
+        image: "images/ameris.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Cave Creek",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium", "Med-Plush"],
+        url: "https://www.afw.com/cave-creek-king-mattress",
+        image: "images/cave-creek.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Flagstaff",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/flagstaff-king-mattress",
+        image: "images/flagstaff.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Havasu",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: false,
+        comfort: ["Firm"],
+        url: "https://www.afw.com/havasu-king-mattress",
+        image: "images/havasu.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Sunbelt",
+        audience: ["Guest", "Personal"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium"],
+        url: "https://www.afw.com/sunbelt-king-mattress",
+        image: "images/sunbelt.png"
+    },
+    {
+        manufacturer: "Therapedic",
+        collection: "Cloud",
+        audience: ["Guest", "Personal"],
+        type: ["Spring", "Hybrid"],
+        priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Med-Firm", "Medium", "Med-Plush"],
+        url: "https://www.afw.com/cloud-mattress-11-king",
+        image: "images/cloud.png"
+    },
+    {
+        manufacturer: "Therapedic",
+        collection: "Windsor Euro",
+        audience: ["Childrens", "Guest"],
+        type: ["Spring"],
+        priorities: ["Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/windsor-king-mattress",
+        image: "images/windsor-euro.png"
+    },
+    {
+        manufacturer: "Bedtech",
+        collection: "Skyland",
+        audience: ["Childrens"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: false,
+        comfort: ["Medium"],
+        url: "https://www.afw.com/skyland-king-mattress",
+        image: "images/skyland.png"
+    },
+    {
+        manufacturer: "Therapedic",
+        collection: "Ruby Waves",
+        audience: ["Childrens"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: false,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/ruby-waves-king-mattress",
+        image: "images/ruby-waves.png"
+    },
+    {
+        manufacturer: "Therapedic",
+        collection: "Sweet Dreams",
+        audience: ["Childrens"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: false,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/sweet-dreams-king-mattress",
+        image: "images/sweet-dreams.png"
+    },
+    {
+        manufacturer: "Therapedic",
+        collection: "Mira",
+        audience: ["Childrens"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: false,
+        comfort: ["Firm", "Med-Firm"],
+        url: "https://www.afw.com/mira-firm-queen-mattress",
+        image: "images/mira.png"
+    },
+    {
+        manufacturer: "American Collection",
+        collection: "Paris",
+        audience: ["Childrens"],
+        type: ["Spring"],
+        priorities: ["Overall Support"],
+        adjustable: false,
+        comfort: ["Firm", "Med-Firm"],
+        url: "https://www.afw.com/paris-foam-queen-mattress",
+        image: "images/paris.png"
+    },
+    {
+        manufacturer: "Memory Foam by BedTech",
+        collection: "7\" Grayson",
+        audience: ["Childrens"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium"],
+        url: "https://www.afw.com/grayson-7-queen-mattress",
+        image: "images/7-grayson.png"
+    },
+    {
+        manufacturer: "Memory Foam by Health Care",
+        collection: "8\" Premier",
+        audience: ["Guest", "Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief"],
+        adjustable: false,
+        comfort: ["Firm", "Med-Firm"],
+        url: "https://www.afw.com/premier-8-king-mattress",
+        image: "images/8-premier.png"
+    },
+    {
+        manufacturer: "Memory Foam by Health Care",
+        collection: "9\" Origin",
+        audience: ["Guest", "Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium", "Med-Plush"],
+        url: "https://www.afw.com/origin-9-king-mattress",
+        image: "images/9-origin.png"
+    },
+    {
+        manufacturer: "Memory Foam by Health Care",
+        collection: "11\" Seebreeze Mist",
+        audience: ["Guest", "Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/seabreeze-mist-king-mattress",
+        image: "images/mist.png"
+    },
+    {
+        manufacturer: "Memory Foam by Health Care",
+        collection: "13\" Seebreeze",
+        audience: ["Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Firm"],
+        url: "https://www.afw.com/seabreeze-king-mattress",
+        image: "images/seabreeze.png"
+    },
+    {
+        manufacturer: "Memory Foam by Health Care",
+        collection: "13\" Seebreeze Copper",
+        audience: ["Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Medium"],
+        url: "https://www.afw.com/seabreeze-copper-king-mattress",
+        image: "images/copper.png"
+    },
+    {
+        manufacturer: "Memory Foam by BedTech",
+        collection: "14\" Marbella",
+        audience: ["Personal"],
+        type: ["Memory Foam"],
+        priorities: ["Pressure Point Relief", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Plush"],
+        url: "https://www.afw.com/marbella-14-king-mattress",
+        image: "images/marbella.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Hybrid Firm",
+        audience: ["Personal"],
+        type: ["Hybrid"],
+        priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Firm", "Med-Firm"],
+        url: "https://www.afw.com/hybrid-firm-king-mattress-2",
+        image: "images/hybrid-firm.png"
+    },
+    {
+        manufacturer: "Beautyrest",
+        collection: "Hybrid Plush",
+        audience: ["Personal"],
+        type: ["Hybrid"],
+        priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+        adjustable: true,
+        comfort: ["Med-Plush", "Plush"],
+        url: "https://www.afw.com/hybrid-plush-king-mattress-2",
+        image: "images/hybrid-plush.png"
+    }
+];
         const quizQuestions = [
             {
                 id: 'audience',
@@ -879,19 +878,23 @@
             document.getElementById('progress-text').textContent = `${Math.round(progress)}%`;
         }
 
-        function createImageElement(mattress) {
-            const imageUrl = mattress.image;
-            const altText = `${mattress.manufacturer} ${mattress.collection}`;
-            
-            return `
-                <div class="w-full sm:w-32 h-52 sm:h-32 flex-shrink-0 mb-4 sm:mb-0 sm:mr-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden bg-white">
-                    <img src="${imageUrl}" 
-                         alt="${altText}"
-                         class="mattress-image" 
-                         loading="lazy">
-                </div>
-            `;
-        }
+     function createImageElement(mattress) {
+    const imageUrl = mattress.image;
+    const altText = `${mattress.manufacturer} ${mattress.collection}`;
+    
+    // Fallback placeholder SVG as base64
+    const placeholderSvg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmYWZjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzljYTNkZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+    
+    return `
+        <div class="w-full sm:w-32 h-52 sm:h-32 flex-shrink-0 mb-4 sm:mb-0 sm:mr-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden bg-white">
+            <img src="${imageUrl}" 
+                 alt="${altText}"
+                 class="mattress-image" 
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='${placeholderSvg}';">
+        </div>
+    `;
+}
 
         function showResults() {
             document.getElementById('quiz-header').classList.add('hidden');
