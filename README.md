@@ -12,7 +12,7 @@ A beautiful, responsive mattress finder quiz that helps users discover their per
 
 ## Live Demo
 
-Visit: https://ARussellCO.github.io/mattress-finder-quiz
+Visit: https://ARussellCO.github.io/mattress-finder-quiz-B
 
 ## Technologies Used
 
