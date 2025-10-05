@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattress Finder Quiz | Find Your Perfect Sleep Solution</title>
+    <meta name="description" content="Take our 2-minute mattress quiz to discover the perfect mattress for your sleep needs. Get personalized recommendations from top brands.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .quiz-option {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #e5e7eb;
+            min-height: 80px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 640px) {
+            .quiz-option {
+                padding: 1rem !important;
+                min-height: 70px;
+            }
+            
+            .quiz-option .option-icon {
+                width: 40px !important;
+                height: 40px !important;
+            }
+        }
+        
+        .quiz-option:hover, .quiz-option:active, .quiz-option:focus {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+        
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .mattress-card {
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .mattress-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            border-color: #e2e8f0;
+        }
+        
+        .match-badge {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .feature-tag {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+        
+        button {
+            touch-action: manipulation;
+        }
+        
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .mattress-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #f8fafc;
+            padding: 10px;
+            border-radius: 0.75rem;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .loading-dots {
+            display: inline-block;
+        }
+        .loading-dots:after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .question-counter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .confidence-meter {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.5s ease;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, transparent 50%, #fef3c7 50%);
+            background-size: 220% 100%;
+            background-position: 100% 0;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            background-position: 0 0;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .smooth-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #0c4a6e;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .quiz-option:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #3b82f6;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-4xl">
+        
+        <div class="sticky-nav mb-8 sm:mb-12 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 fade-in">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-sm font-semibold text-gray-700">Your Progress</span>
+                <span id="progress-text" class="text-sm font-bold text-blue-600">0%</span>
+            </div>
+            <div class="w-full bg-gray-100 rounded-full h-2 sm:h-3 overflow-hidden">
+                <div id="progress-bar" class="progress-bar h-2 sm:h-3 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <header id="quiz-header" class="text-center mb-8 sm:mb-12 fade-in">
+            <div class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4 pulse">
+                <i class="fas fa-bed text-white text-xl sm:text-2xl"></i>
+            </div>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent px-2">
+                Find Your Perfect Mattress
+            </h1>
+            <p class="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed px-2">
+                Take our 2-minute quiz and discover mattresses tailored to your sleep preferences.
+            </p>
+        </header>
+
+        <main id="main-content">
+            <div id="quiz-container" class="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden fade-in">
+            </div>
+
+            <div id="loading-container" class="hidden">
+                <div class="text-center py-12 sm:py-16 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 px-4">
+                    <div class="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mb-6">
+                        <i class="fas fa-spinner fa-spin text-blue-600 text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-700 mb-4">Finding Your Perfect Matches<span class="loading-dots"></span></h3>
+                    <p class="text-gray-600 max-w-md mx-auto text-sm sm:text-base">Analyzing your preferences across our mattress collection</p>
+                    <div class="mt-6 max-w-md mx-auto">
+                        <div class="confidence-meter">
+                            <div id="confidence-fill" class="confidence-fill" style="width: 0%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Calculating match confidence...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results-container" class="hidden">
+                <div class="text-center mb-8 sm:mb-12 slide-in">
+                    <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-green-500 rounded-full mb-4 sm:mb-6 bounce-in">
+                        <i class="fas fa-check text-white text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">Your Perfect Mattress Matches</h2>
+                    <p class="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto px-2 mb-4">
+                        We found <span id="match-count" class="font-bold text-blue-600">0</span> mattresses that match your preferences
+                    </p>
+                    <div class="max-w-md mx-auto bg-blue-50 rounded-lg p-4">
+                        <p class="text-sm text-blue-800 flex items-center justify-center">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            <span>Based on your comfort preferences</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="results-content" class="space-y-6 sm:space-y-8">
+                </div>
+                
+                <div class="text-center mt-12 pt-8 border-t border-gray-200">
+                    <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Need Help Deciding?</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Our sleep experts can provide personalized recommendations</p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a href="https://www.afw.com" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 text-sm">
+                                <i class="fas fa-phone mr-2"></i>
+                                <span>Call Sleep Expert</span>
+                            </a>
+                            <a href="https://www.afw.com" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-all flex items-center justify-center space-x-2 text-sm">
+                                <i class="fas fa-calendar mr-2"></i>
+                                <span>Book Consultation</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Want to try different preferences?</p>
+                    <button id="restart-quiz" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-base w-full sm:w-auto highlight">
+                        <i class="fas fa-redo mr-2"></i>Retake the Quiz
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const mattressCatalog = [
+            {
+                manufacturer: "Sealy",
+                collection: "Madison Aire",
+                audience: ["Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium"],
+                url: "https://www.afw.com/madison-aire-king-mattress",
+                image: "images/madison-aire.png"
+            },
+            {
+                manufacturer: "Sealy",
+                collection: "Royce Falls",
+                audience: ["Personal"],
+                type: ["Spring", "Hybrid"],
+                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Med-Plush", "Plush"],
+                url: "https://www.afw.com/royce-falls-king-mattress",
+                image: "images/royce-falls.png"
+            },
+            {
+                manufacturer: "Immunity",
+                collection: "Chestnut",
+                audience: ["Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support"],
+                adjustable: true,
+                comfort: ["Firm", "Med-Firm"],
+                url: "",
+                image: "images/chestnut.png"
+            },
+            {
+                manufacturer: "Immunity",
+                collection: "Auburn",
+                audience: ["Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support"],
+                adjustable: true,
+                comfort: ["Med-Plush", "Plush"],
+                url: "",
+                image: "images/auburn.png"
+            },
+            {
+                manufacturer: "Sealy Posterpedic",
+                collection: "Clear Creek",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support"],
+                adjustable: true,
+                comfort: ["Med-Plush", "Plush"],
+                url: "https://www.afw.com/clear-creek-king-mattress",
+                image: "images/clear-creek.png"
+            },
+            {
+                manufacturer: "Sealy Posterpedic",
+                collection: "Kempton",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: false,
+                comfort: ["Med-Plush", "Plush"],
+                url: "https://www.afw.com/kempton-king-mattress",
+                image: "images/kempton.png"
+            },
+            {
+                manufacturer: "Sealy Posterpedic",
+                collection: "Merriweather",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium", "Med-Plush"],
+                url: "https://www.afw.com/merriweather-king-mattress",
+                image: "images/merriweather.png"
+            },
+            {
+                manufacturer: "Sealy Posterpedic",
+                collection: "Ameris",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Firm"],
+                url: "https://www.afw.com/ameris-king-mattress",
+                image: "images/ameris.png"
+            },
+            {
+                manufacturer: "Beautyrest",
+                collection: "Cave Creek",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium", "Med-Plush"],
+                url: "https://www.afw.com/cave-creek-king-mattress",
+                image: "images/cave-creek.png"
+            },
+            {
+                manufacturer: "Beautyrest",
+                collection: "Flagstaff",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Plush"],
+                url: "https://www.afw.com/flagstaff-king-mattress",
+                image: "images/flagstaff.png"
+            },
+            {
+                manufacturer: "Beautyrest",
+                collection: "Havasu",
+                audience: ["Guest", "Personal"],
+                type: ["Spring"],
+                priorities: ["Overall Support", "Temperature Regulation"],
+                adjustable: false,
+                comfort: ["Firm"],
+                url: "https://www.afw.com/havasu-king-mattress",
+                image: "images/havasu.png"
+            },
+            {
+                manufacturer: "Therapedic",
+                collection: "Cloud",
+                audience: ["Guest", "Personal"],
+                type: ["Spring", "Hybrid"],
+                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Med-Firm", "Medium", "Med-Plush"],
+                url: "https://www.afw.com/cloud-mattress-11-king",
+                image: "images/cloud.png"
+            },
+            {
+                manufacturer: "Therapedic",
+                collection: "Mira",
+                audience: ["Childrens"],
+                type: ["Spring"],
+                priorities: ["Overall Support"],
+                adjustable: false,
+                comfort: ["Firm", "Med-Firm"],
+                url: "https://www.afw.com/mira-firm-queen-mattress",
+                image: "images/mira.png"
+            },
+            {
+                manufacturer: "Memory Foam by BedTech",
+                collection: "7\" Grayson",
+                audience: ["Childrens"],
+                type: ["Memory Foam"],
+                priorities: ["Pressure Point Relief", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium"],
+                url: "https://www.afw.com/grayson-7-queen-mattress",
+                image: "images/7-grayson.png"
+            },
+            {
+                manufacturer: "Memory Foam by Health Care",
+                collection: "8\" Premier",
+                audience: ["Guest", "Personal"],
+                type: ["Memory Foam"],
+                priorities: ["Pressure Point Relief"],
+                adjustable: false,
+                comfort: ["Firm", "Med-Firm"],
+                url: "https://www.afw.com/premier-8-king-mattress",
+                image: "images/8-premier.png"
+            },
+            {
+                manufacturer: "Memory Foam by Health Care",
+                collection: "9\" Origin",
+                audience: ["Guest", "Personal"],
+                type: ["Memory Foam"],
+                priorities: ["Pressure Point Relief", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium", "Med-Plush"],
+                url: "https://www.afw.com/origin-9-king-mattress",
+                image: "images/9-origin.png"
+            },
+            {
+                manufacturer: "Memory Foam by Health Care",
+                collection: "13\" Seebreeze Copper",
+                audience: ["Personal"],
+                type: ["Memory Foam"],
+                priorities: ["Pressure Point Relief", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Medium"],
+                url: "https://www.afw.com/seabreeze-copper-king-mattress",
+                image: "images/copper.png"
+            },
+            {
+                manufacturer: "Memory Foam by BedTech",
+                collection: "14\" Marbella",
+                audience: ["Personal"],
+                type: ["Memory Foam"],
+                priorities: ["Pressure Point Relief", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Plush"],
+                url: "https://www.afw.com/marbella-14-king-mattress",
+                image: "images/marabella.png"
+            },
+            {
+                manufacturer: "Beautyrest",
+                collection: "Hybrid Firm",
+                audience: ["Personal"],
+                type: ["Hybrid"],
+                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Firm", "Med-Firm"],
+                url: "https://www.afw.com/hybrid-firm-king-mattress-2",
+                image: "images/hybrid-firm.png"
+            },
+            {
+                manufacturer: "Beautyrest",
+                collection: "Hybrid Plush",
+                audience: ["Personal"],
+                type: ["Hybrid"],
+                priorities: ["Pressure Point Relief", "Overall Support", "Temperature Regulation"],
+                adjustable: true,
+                comfort: ["Med-Plush", "Plush"],
+                url: "https://www.afw.com/hybrid-plush-king-mattress-2",
+                image: "images/hybrid-plush.png"
+            }
+        ];
+
+        const quizQuestions = [
+            {
+                id: 'audience',
+                question: 'Who will be using this mattress primarily?',
+                type: 'single',
+                options: [
+                    { value: 'Personal', label: 'For Myself', icon: 'fas fa-user', description: 'Primary bed for my personal use' },
+                    { value: 'Couple', label: 'Myself and Another Person', icon: 'fas fa-users', description: 'Sharing with a partner or spouse' },
+                    { value: 'Guest', label: 'Guest Room', icon: 'fas fa-home', description: 'Occasional use for visitors' },
+                    { value: 'Childrens', label: 'For Children', icon: 'fas fa-child', description: 'Kids room or young adults' }
+                ]
+            },
+            {
+                id: 'type',
+                question: 'What type of mattress technology do you prefer?',
+                type: 'single',
+                options: [
+                    { value: 'Memory Foam', label: 'Memory Foam', icon: 'fas fa-layer-group', description: 'Contouring comfort & pressure relief' },
+                    { value: 'Spring', label: 'Innerspring', icon: 'fas fa-bed', description: 'Traditional support & bounce' },
+                    { value: 'Hybrid', label: 'Hybrid', icon: 'fas fa-cubes', description: 'Combination of foam & springs' }
+                ]
+            },
+            {
+                id: 'priorities',
+                question: 'What are your top 2 sleep priorities?',
+                type: 'multiple',
+                max: 2,
+                options: [
+                    { value: 'Overall Support', label: 'Spinal Support', icon: 'fas fa-bone', description: 'Proper alignment & back support' },
+                    { value: 'Pressure Point Relief', label: 'Pressure Relief', icon: 'fas fa-hand-holding-heart', description: 'Reduce shoulder/hip pressure' },
+                    { value: 'Temperature Regulation', label: 'Cool Sleep', icon: 'fas fa-thermometer-half', description: 'Stay cool throughout the night' }
+                ]
+            },
+            {
+                id: 'adjustable',
+                question: 'Do you plan to use an adjustable base?',
+                type: 'single',
+                options: [
+                    { value: 'yes', label: 'Yes', icon: 'fas fa-couch', description: 'I have or plan to get an adjustable base' },
+                    { value: 'no', label: 'No', icon: 'fas fa-bed', description: 'Traditional bed frame or platform' }
+                ]
+            },
+            {
+                id: 'comfort',
+                question: 'What comfort level feels best for you?',
+                type: 'single',
+                options: [
+                    { value: 'Firm', label: 'Firm', icon: 'fas fa-grip-lines', description: 'Maximum support, less sink' },
+                    { value: 'Med-Firm', label: 'Medium-Firm', icon: 'fas fa-grip-lines', description: 'Support with some cushion' },
+                    { value: 'Medium', label: 'Medium', icon: 'fas fa-grip-lines', description: 'Balanced support & comfort' },
+                    { value: 'Med-Plush', label: 'Medium-Plush', icon: 'fas fa-grip-lines', description: 'Soft with underlying support' },
+                    { value: 'Plush', label: 'Plush', icon: 'fas fa-grip-lines', description: 'Maximum cushion & contour' }
+                ]
+            }
+        ];
+
+        let userAnswers = {};
+        let currentQuestionIndex = 0;
+
+        function initQuiz() {
+            showQuestion(currentQuestionIndex);
+            updateProgress();
+            setupKeyboardNavigation();
+        }
+
+        function showQuestion(index) {
+            const quizContainer = document.getElementById('quiz-container');
+            const question = quizQuestions[index];
+            
+            let optionsHtml = question.options.map(option => `
+                <button class="quiz-option w-full text-left p-4 sm:p-6 rounded-lg sm:rounded-xl flex items-start space-x-3 sm:space-x-4 smooth-transition ${
+                    (question.type === 'single' && userAnswers[question.id] === option.value) || 
+                    (question.type === 'multiple' && userAnswers[question.id]?.includes(option.value)) ? 'selected' : ''
+                }" data-value="${option.value}">
+                    <div class="flex-shrink-0 option-icon w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="${option.icon} text-blue-600 text-base sm:text-lg"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold text-gray-900 text-base sm:text-lg mb-1">${option.label}</div>
+                        <div class="text-gray-600 text-xs sm:text-sm">${option.description}</div>
+                    </div>
+                    ${question.type === 'multiple' ? 
+                        `<div class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-gray-300 flex items-center justify-center ${
+                            userAnswers[question.id]?.includes(option.value) ? 'bg-blue-600 border-blue-600' : ''
+                        }">
+                            ${userAnswers[question.id]?.includes(option.value) ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                        </div>` : 
+                        `<div class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-gray-300 flex items-center justify-center ${
+                            userAnswers[question.id] === option.value ? 'bg-blue-600 border-blue-600' : ''
+                        }">
+                            ${userAnswers[question.id] === option.value ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                        </div>`
+                    }
+                </button>
+            `).join('');
+
+            quizContainer.innerHTML = `
+                <div class="p-4 sm:p-8 border-b border-gray-100">
+                    <div class="flex items-center space-x-2 sm:space-x-3 mb-2">
+                        <span class="question-counter text-white px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">Question ${index + 1} of ${quizQuestions.length}</span>
+                        <span class="text-gray-500 text-xs sm:text-sm">${Math.round(((index + 1) / quizQuestions.length) * 100)}% Complete</span>
+                    </div>
+                    <h2 class="text-lg sm:text-2xl font-bold text-gray-900 mb-2">${question.question}</h2>
+                    ${question.type === 'multiple' ? `<p class="text-gray-600 text-sm sm:text-base">Select up to ${question.max} options</p>` : ''}
+                </div>
+                <div class="p-4 sm:p-8">
+                    <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                        ${optionsHtml}
+                    </div>
+                    <div class="flex justify-between items-center pt-4 sm:pt-6 border-t border-gray-100">
+                        <button id="prev-btn" class="bg-gray-100 text-gray-700 px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:bg-gray-200 transition-all flex items-center space-x-2 text-sm sm:text-base smooth-transition ${
+                            index === 0 ? 'invisible' : ''
+                        }">
+                            <i class="fas fa-arrow-left text-xs sm:text-sm"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button id="next-btn" class="bg-blue-600 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:bg-blue-700 transition-all flex items-center space-x-2 text-sm sm:text-base smooth-transition ${
+                            !isAnswerValid(question.id) ? 'opacity-50 cursor-not-allowed' : ''
+                        }" ${!isAnswerValid(question.id) ? 'disabled' : ''}>
+                            <span>${index === quizQuestions.length - 1 ? 'See My Matches' : 'Next'}</span>
+                            <i class="fas fa-arrow-right text-xs sm:text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', () => handleOptionClick(question, btn.dataset.value));
+            });
+
+            document.getElementById('prev-btn').addEventListener('click', goToPreviousQuestion);
+            document.getElementById('next-btn').addEventListener('click', goToNextQuestion);
+        }
+
+        function handleOptionClick(question, value) {
+            if (question.type === 'single') {
+                userAnswers[question.id] = value;
+            } else {
+                if (!userAnswers[question.id]) userAnswers[question.id] = [];
+                const index = userAnswers[question.id].indexOf(value);
+                if (index > -1) {
+                    userAnswers[question.id].splice(index, 1);
+                } else if (userAnswers[question.id].length < question.max) {
+                    userAnswers[question.id].push(value);
+                }
+            }
+            showQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+        function isAnswerValid(questionId) {
+            const answer = userAnswers[questionId];
+            if (!answer) return false;
+            const question = quizQuestions.find(q => q.id === questionId);
+            if (question.type === 'multiple') {
+                return answer.length > 0 && answer.length <= question.max;
+            }
+            return true;
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                updateProgress();
+            }
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                updateProgress();
+            } else {
+                showLoading();
+                setTimeout(showResults, 1500);
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('loading-container').classList.remove('hidden');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                document.getElementById('confidence-fill').style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                }
+            }, 50);
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `${Math.round(progress)}%`;
+        }
+
+        function createImageElement(mattress) {
+            const imageUrl = mattress.image || '';
+            const altText = `${mattress.manufacturer} ${mattress.collection}`;
+            
+            const brandColors = {
+                'Sealy': '#1e40af',
+                'Immunity': '#dc2626', 
+                'Beautyrest': '#7c3aed',
+                'Therapedic': '#059669',
+                'Bedtech': '#ea580c',
+                'Memory Foam': '#0ea5e9'
+            };
+            
+            const backgroundColor = brandColors[mattress.manufacturer.split(' ')[0]] || '#3b82f6';
+            
+            return `
+                <div class="w-full sm:w-32 h-52 sm:h-32 flex-shrink-0 mb-4 sm:mb-0 sm:mr-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden bg-white">
+                    ${imageUrl ? 
+                        `<img src="${imageUrl}" 
+                              alt="${altText}"
+                              class="mattress-image" 
+                              loading="lazy"
+                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              onload="this.style.display='block'; this.nextElementSibling.style.display='none';">` : 
+                        ''
+                    }
+                    <div class="image-fallback w-full h-full ${imageUrl ? 'hidden' : 'flex'}" style="background: ${backgroundColor}">
+                        <div class="text-center text-white p-4 flex flex-col items-center justify-center">
+                            <i class="fas fa-bed text-2xl mb-2"></i>
+                            <div class="text-sm font-bold leading-tight">${mattress.manufacturer}</div>
+                            <div class="text-xs opacity-90 mt-1">${mattress.collection}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showResults() {
+            document.getElementById('quiz-header').classList.add('hidden');
+            
+            const matches = findMattressMatches();
+            document.getElementById('loading-container').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            
+            const resultsContent = document.getElementById('results-content');
+            document.getElementById('match-count').textContent = matches.length;
+            
+            if (matches.length === 0) {
+                resultsContent.innerHTML = `
+                    <div class="text-center py-12 sm:py-16 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 px-4">
+                        <i class="fas fa-search text-4xl sm:text-6xl text-gray-300 mb-4 sm:mb-6"></i>
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-700 mb-3 sm:mb-4">No Perfect Matches Found</h3>
+                        <p class="text-gray-600 max-w-md mx-auto mb-6 sm:mb-8 text-sm sm:text-base">Try adjusting your preferences or speak with our sleep experts.</p>
+                        <button onclick="restartQuiz()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all text-sm sm:text-base w-full sm:w-auto">
+                            Adjust Preferences
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let resultsHtml = '';
+            matches.forEach((match, index) => {
+                const matchPercentage = Math.round(match.score * 100);
+                const imageHtml = createImageElement(match.mattress);
+                
+                resultsHtml += `
+                    <div class="mattress-card rounded-xl sm:rounded-2xl p-4 sm:p-8 slide-in smooth-transition" style="animation-delay: ${index * 0.1}s">
+                        <div class="flex flex-col sm:flex-row sm:items-start mb-4 sm:mb-6">
+                            ${imageHtml}
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 space-y-2 sm:space-y-0">
+                                    <div class="min-w-0">
+                                        <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1 break-words">${match.mattress.manufacturer} ${match.mattress.collection}</h3>
+                                        <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
+                                            <span class="match-badge px-3 py-1 rounded-full text-xs sm:text-sm w-fit">${matchPercentage}% Match</span>
+                                            <span class="text-gray-500 text-xs sm:text-sm">${match.mattress.type.join(' • ')} • ${match.mattress.comfort.join(' • ')}</span>
+                                        </div>
+                                    </div>
+                                    ${match.mattress.url ? `
+                                        <a href="${match.mattress.url}" target="_blank" 
+                                           class="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 text-sm sm:text-base w-full sm:w-auto smooth-transition">
+                                            <span>View Details</span>
+                                            <i class="fas fa-arrow-up-right-from-square text-xs sm:text-sm"></i>
+                                        </a>
+                                    ` : `
+                                        <button class="bg-gray-400 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-semibold flex items-center justify-center space-x-2 text-sm sm:text-base w-full sm:w-auto cursor-not-allowed" disabled>
+                                            <span>Details Unavailable</span>
+                                        </button>
+                                    `}
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                                    ${match.mattress.type.map(type => `<span class="feature-tag px-3 py-1 rounded-full">${type}</span>`).join('')}
+                                    ${match.mattress.comfort.map(comfort => `<span class="feature-tag px-3 py-1 rounded-full">${comfort}</span>`).join('')}
+                                    ${match.mattress.adjustable ? `<span class="feature-tag px-3 py-1 rounded-full">Adjustable Base Compatible</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6">
+                            <h4 class="font-semibold text-gray-900 mb-3 flex items-center space-x-2 text-sm sm:text-base">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <span>Why This Mattress Matches Your Needs</span>
+                            </h4>
+                            <ul class="space-y-2">
+                                ${match.reasons.map(reason => `
+                                    <li class="flex items-start space-x-3 text-gray-700 text-sm">
+                                        <i class="fas fa-check-circle text-green-500 mt-0.5 flex-shrink-0"></i>
+                                        <span class="flex-1">${reason}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContent.innerHTML = resultsHtml;
+            document.getElementById('restart-quiz').addEventListener('click', restartQuiz);
+        }
+
+        function findMattressMatches() {
+            const matches = [];
+            mattressCatalog.forEach(mattress => {
+                let score = 0;
+                const reasons = [];
+                
+                const audienceToCheck = userAnswers.audience === 'Couple' ? 'Personal' : userAnswers.audience;
+                if (mattress.audience.includes(audienceToCheck)) {
+                    score += 2;
+                    reasons.push(`Perfect for ${userAnswers.audience === 'Couple' ? 'couple' : userAnswers.audience.toLowerCase()} use`);
+                }
+
+                if (mattress.type.includes(userAnswers.type)) {
+                    score += 2;
+                    reasons.push(`${userAnswers.type} construction`);
+                }
+
+                const priorityMatchCount = userAnswers.priorities.filter(priority => 
+                    mattress.priorities.includes(priority)
+                ).length;
+                
+                if (priorityMatchCount > 0) {
+                    score += priorityMatchCount * 1.5;
+                    const matchedPriorities = userAnswers.priorities.filter(p => mattress.priorities.includes(p));
+                    reasons.push(`Addresses ${matchedPriorities.join(' and ').toLowerCase()}`);
+                }
+
+                if (userAnswers.adjustable === 'yes') {
+                    if (mattress.adjustable) {
+                        score += 1.5;
+                        reasons.push('Adjustable base compatible');
+                    }
+                }
+
+                if (mattress.comfort.includes(userAnswers.comfort)) {
+                    score += 2;
+                    reasons.push(`${userAnswers.comfort} comfort level`);
+                } else {
+                    const proximity = getComfortProximity(mattress.comfort, userAnswers.comfort);
+                    if (proximity <= 1) {
+                        score += 1;
+                        reasons.push('Similar comfort level available');
+                    }
+                }
+
+                const normalizedScore = score / 10;
+                
+                if (normalizedScore >= 0.4) {
+                    matches.push({ mattress, score: normalizedScore, reasons });
+                }
+            });
+            
+            matches.sort((a, b) => b.score - a.score);
+            return matches.slice(0, 5);
+        }
+
+        function getComfortProximity(mattressComforts, userComfort) {
+            const comfortLevels = ['Firm', 'Med-Firm', 'Medium', 'Med-Plush', 'Plush'];
+            const userIndex = comfortLevels.indexOf(userComfort);
+            
+            let minProximity = Infinity;
+            mattressComforts.forEach(comfort => {
+                const comfortIndex = comfortLevels.indexOf(comfort);
+                if (comfortIndex !== -1) {
+                    const proximity = Math.abs(comfortIndex - userIndex);
+                    if (proximity < minProximity) {
+                        minProximity = proximity;
+                    }
+                }
+            });
+            
+            return minProximity;
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            document.getElementById('results-container').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('quiz-header').classList.remove('hidden');
+            initQuiz();
+        }
+
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    if (currentQuestionIndex > 0) {
+                        goToPreviousQuestion();
+                    }
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    if (currentQuestionIndex < quizQuestions.length - 1 && isAnswerValid(quizQuestions[currentQuestionIndex].id)) {
+                        goToNextQuestion();
+                    } else if (currentQuestionIndex === quizQuestions.length - 1 && isAnswerValid(quizQuestions[currentQuestionIndex].id)) {
+                        showLoading();
+                        setTimeout(showResults, 1500);
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
