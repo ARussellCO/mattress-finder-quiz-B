@@ -99,13 +99,13 @@
         }
         
         .mattress-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #f8fafc;
-            padding: 10px;
-            border-radius: 0.75rem;
-        }
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #f8fafc;
+    padding: 8px;
+    border-radius: 0.5rem;
+}
         
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
@@ -882,20 +882,16 @@
     const imageUrl = mattress.image;
     const altText = `${mattress.manufacturer} ${mattress.collection}`;
     
-    // Fallback placeholder SVG as base64
-    const placeholderSvg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmYWZjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzljYTNkZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
-    
     return `
-        <div class="w-full sm:w-32 h-52 sm:h-32 flex-shrink-0 mb-4 sm:mb-0 sm:mr-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden bg-white">
+        <div class="w-full sm:w-32 h-52 sm:h-32 flex-shrink-0 mb-4 sm:mb-0 sm:mr-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden bg-white flex items-center justify-center">
             <img src="${imageUrl}" 
                  alt="${altText}"
-                 class="mattress-image" 
+                 class="w-full h-full object-contain p-2" 
                  loading="lazy"
-                 onerror="this.onerror=null; this.src='${placeholderSvg}';">
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmYWZjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzljYTNkZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';">
         </div>
     `;
 }
-
         function showResults() {
             document.getElementById('quiz-header').classList.add('hidden');
             
